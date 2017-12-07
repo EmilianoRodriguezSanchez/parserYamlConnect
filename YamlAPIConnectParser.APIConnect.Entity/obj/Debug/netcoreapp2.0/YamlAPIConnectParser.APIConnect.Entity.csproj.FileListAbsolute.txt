@@ -1,0 +1,9 @@
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\obj\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.csprojResolveAssemblyReference.cache
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\obj\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.csproj.CoreCompileInputs.cache
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\obj\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.AssemblyInfoInputs.cache
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\obj\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.AssemblyInfo.cs
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\bin\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.deps.json
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\bin\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.dll
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\bin\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.pdb
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\obj\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.dll
+H:\TestYamlParser\YamlAPIConnectParser.APIConnect.Entity\obj\Debug\netcoreapp2.0\YamlAPIConnectParser.APIConnect.Entity.pdb
