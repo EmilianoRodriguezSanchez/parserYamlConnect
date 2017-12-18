@@ -3574,11 +3574,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj",
+      "projectUniqueName": "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj",
       "projectName": "YamlAPIConnectParser.APIConnect.Entity",
-      "projectPath": "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj",
+      "projectPath": "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj",
       "packagesPath": "C:\\Users\\erodriguez\\.nuget\\packages\\",
-      "outputPath": "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect.Entity\\obj\\",
+      "outputPath": "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect.Entity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

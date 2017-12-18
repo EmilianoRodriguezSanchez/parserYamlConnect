@@ -3617,11 +3617,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect\\YamlAPIConnectParser.APIConnect.csproj",
+      "projectUniqueName": "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect\\YamlAPIConnectParser.APIConnect.csproj",
       "projectName": "YamlAPIConnectParser.APIConnect",
-      "projectPath": "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect\\YamlAPIConnectParser.APIConnect.csproj",
+      "projectPath": "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect\\YamlAPIConnectParser.APIConnect.csproj",
       "packagesPath": "C:\\Users\\erodriguez\\.nuget\\packages\\",
-      "outputPath": "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect\\obj\\",
+      "outputPath": "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3640,8 +3640,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj": {
-              "projectPath": "H:\\TestYamlParser\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj"
+            "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj": {
+              "projectPath": "F:\\proyectGitHub\\parserYamlConnect\\YamlAPIConnectParser.APIConnect.Entity\\YamlAPIConnectParser.APIConnect.Entity.csproj"
             }
           }
         }
