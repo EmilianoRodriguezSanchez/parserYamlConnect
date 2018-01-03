@@ -9,8 +9,8 @@
 
 
     using Newtonsoft.Json;
-    public partial class Definitions
-        {
+    public partial class Definitions: DynamicDictionary
+    {
             //[JsonProperty("BeanCapitalAsegurado")]
             //public BeanCapitalAsegurado BeanCapitalAsegurado { get; set; }
 

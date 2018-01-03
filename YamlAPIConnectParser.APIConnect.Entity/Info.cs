@@ -17,7 +17,7 @@ namespace YamlAPIConnectParser.APIConnect.Entity
 
     using Newtonsoft.Json;
 
-    public partial class Info
+    public partial class Info: DynamicDictionary
         {
             [JsonProperty("contact")]
             public Contact Contact { get; set; }

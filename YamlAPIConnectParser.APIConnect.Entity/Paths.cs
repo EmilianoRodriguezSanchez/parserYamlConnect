@@ -6,12 +6,11 @@
     //
     //    var data = GettingStarted.FromJson(jsonString);
     //
-   
-        using Newtonsoft.Json;
-        public partial class Paths
-        {
-            [JsonProperty("/contrataciones_decenal")]
-            public StandardHttp ContratacionesDecenal { get; set; }
-        }
+
+    using Newtonsoft.Json;
+    public partial class Paths : DynamicDictionary
+    {
+
     }
+}
 

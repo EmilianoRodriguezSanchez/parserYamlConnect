@@ -34,22 +34,33 @@ namespace YamlAPIConnectParser.APIConnect.Reflection
         /// <param name="typeProperty">The type property.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static T CreateProperty(T obj, string nameproperty, Type typeProperty, object value)
+        public static T CreateProperty(string nameproperty, Type typeProperty, object value)
         {
-            PropertyInfo prop = typeof(T).GetProperty(nameproperty, BindingFlags.Public | BindingFlags.Instance);
+            Type type = typeof(T);
+            var obj = Activator.CreateInstance(type);
+
+            PropertyInfo prop = type.GetProperty(nameproperty, BindingFlags.Public | BindingFlags.Instance);
             if (null == prop)
             {
-                typeof(T).InvokeMember(nameproperty,
-                BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty,
-                Type.DefaultBinder, obj, new object[] { value });
-                
+                try
+                {
+                    type.InvokeMember(nameproperty,
+                        BindingFlags.Public |
+                        BindingFlags.Instance | BindingFlags.SetProperty,
+                        null, obj, new object[] { value });
+                }
+                catch (MissingFieldException e)
+                {
+                    // Show the user that the DoSomething method cannot be called.
+                    Console.WriteLine("Unable to call the DoSomething method: {0}", e.Message);
+                }
             }
-            else if(null!=prop && prop.CanWrite)
+            else if (null != prop && prop.CanWrite)
             {
-               var valueOld= prop.GetValue(obj, null);
-                if (valueOld!= value) { prop.SetValue(obj, value, null);  }
+                var valueOld = prop.GetValue(obj, null);
+                if (valueOld != value) { prop.SetValue(obj, value, null); }
             }
-            return obj;
+            return (T)obj;
 
         }
 

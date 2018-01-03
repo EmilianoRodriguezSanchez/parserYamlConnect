@@ -9,12 +9,12 @@
    
 
         using Newtonsoft.Json;
-        public partial class SecurityDefinitions
-        {
-            //[JsonProperty("clientIdHeader")]
-            //public ClientIdHeader ClientIdHeader { get; set; }
-        }
+        public partial class SecurityDefinitions:DynamicDictionary
+    {
+        [JsonProperty("clientIdHeader")]
+        public ClientIdHeader ClientIdHeader { get; set; }
     }
+}
 
 
 

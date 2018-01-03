@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\YamlAPIConnectParser.APIConnect.Entity\YamlAPIConnectParser.APIConnect.Entity.csproj" />
     <ProjectReference Include="..\YamlAPIConnectParser.APIConnect\YamlAPIConnectParser.APIConnect.csproj" />
   </ItemGroup>
 
