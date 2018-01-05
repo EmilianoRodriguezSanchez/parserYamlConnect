@@ -38,11 +38,15 @@ namespace YamlAPIConnectParser.APIConnect.Test
             string _filePath = @"f:\segurcaisaadeslas\SiniestrosHogar\SiniestrosHogar.Api\APIS-HOME\HOME-CLAIM-PRODUCT\ECHO\home_claim_1.0.0.yaml";
             var yaml = new YamlAPIConnectParser.APIConnect.Parser.YamlParser(_filePath);
            Entity.GettingStarted gettingStarted = yaml.Load(_filePath);
-           var properties= gettingStarted.Definitions.GetDynamicMemberNames();
+
+           var _properties= gettingStarted.Definitions.GetDynamicMemberNames();
+
             dynamic definitions = gettingStarted.Definitions;
             var consequentialtrade = definitions["consequentialtrade"];
-            var consequentialTradeId = definitions.consequentialtrade.properties.consequentialTradeId;
-            var type = consequentialTradeId["type"];
+            var properties = definitions.consequentialtrade["properties"];
+            var consequentialTradeId = definitions.consequentialtrade.properties["consequentialTradeId"];
+            
+            var type = definitions.consequentialtrade.properties.consequentialTradeId["type"];
             //Assert
             // Assert.IsTrue(obj_old != null);
         }

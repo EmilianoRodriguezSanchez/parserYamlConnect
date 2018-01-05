@@ -5,6 +5,9 @@ using System.Dynamic;
 using System.Reflection;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+
 
 namespace YamlAPIConnectParser.APIConnect.Entity
 {
@@ -41,7 +44,7 @@ namespace YamlAPIConnectParser.APIConnect.Entity
         {
             if (instance == null)
                 throw new ArgumentNullException("instance");
-            
+
             Instance = instance;
             if (instance != null)
                 InstanceType = instance.GetType();
@@ -60,11 +63,23 @@ namespace YamlAPIConnectParser.APIConnect.Entity
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
-        #endregion
-
+        #endregion        
+        /// <summary>
+        /// Returns the enumeration of all dynamic member names.
+        /// </summary>
+        /// <returns>
+        /// A sequence that contains dynamic member names.
+        /// </returns>
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            return from f in Instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public) select f.Name;
+            var properties = from f in Instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public) select f;
+            //includes the properties defined in DynamicDictionary
+            //foreach (var property in properties.Where(property => !_cache.ContainsKey(property.Name)))
+            //{
+            //    _cache[property.Name] = property;
+            //}
+
+            return _cache.Keys;
         }
 
 
@@ -77,8 +92,13 @@ namespace YamlAPIConnectParser.APIConnect.Entity
         /// Cached type of the instance
         /// </summary>
         Type InstanceType;
-
-       public PropertyInfo[] InstancePropertyInfo
+        /// <summary>
+        /// Gets the instance property information.
+        /// </summary>
+        /// <value>
+        /// The instance property information.
+        /// </value>
+        public PropertyInfo[] InstancePropertyInfo
         {
             get
             {
@@ -88,20 +108,17 @@ namespace YamlAPIConnectParser.APIConnect.Entity
             }
         }
         private PropertyInfo[] _InstancePropertyInfo;
-
-
-
-
+        
         // The inner dictionary.
-        Dictionary<string, object> Properties = new Dictionary<string, object>();
-
+       private Dictionary<string, object> _cache = new Dictionary<string, object>();
+        public Dictionary<string, object> Properties = new Dictionary<string, object>();
         // This property returns the number of elements
         // in the inner dictionary.
         public int Count
         {
             get
             {
-                return Properties.Count;
+                return _cache.Count;
             }
         }
 
@@ -111,7 +128,7 @@ namespace YamlAPIConnectParser.APIConnect.Entity
             {
                 try
                 {
-                    return Properties[key];
+                     return Properties[key];
                 }
                 catch (KeyNotFoundException ex)
                 {
@@ -124,29 +141,30 @@ namespace YamlAPIConnectParser.APIConnect.Entity
                     throw;
                 }
             }
-            set {
+            set
+            {
                 object result = null;
-                if (Properties.TryGetValue(key, out result))
+                if (_cache.TryGetValue(key, out result))
                 {
-                    Properties[key] = value == null ? null : value;
+                   _cache[key] = value == null ? null : value;
+                   // Properties[key] = SetDictionary(value);
                 }
-
-              
-
+                
                 // check instance for existance of type first
                 var miArray = InstanceType.GetMember(key, BindingFlags.Public | BindingFlags.GetProperty);
                 if (miArray != null && miArray.Length > 0)
                     SetProperty(Instance, key, value);
                 else
-                    Properties[key] = value;
+                     _cache[key] = value;
+                    //Properties[key] = SetDictionary(value);
+
             }
         }
 
 
         // If you try to get a value of a property 
         // not defined in the class, this method is called.
-        public override bool TryGetMember(
-            GetMemberBinder binder, out object result)
+        public override bool TryGetMember( GetMemberBinder binder, out object result)
         {
             // Converting the property name to lowercase
             // so that property names become case-insensitive.
@@ -155,7 +173,7 @@ namespace YamlAPIConnectParser.APIConnect.Entity
             // If the property name is found in a dictionary,
             // set the result parameter to the property value and return true.
             // Otherwise, return false.
-            if (Properties.TryGetValue(name, out result))
+            if (_cache.TryGetValue(name, out result))
             {
                 return true;
             }
@@ -179,8 +197,7 @@ namespace YamlAPIConnectParser.APIConnect.Entity
 
         // If you try to set a value of a property that is
         // not defined in the class, this method is called.
-        public override bool TrySetMember(
-            SetMemberBinder binder, object value)
+        public override bool TrySetMember( SetMemberBinder binder, object value)
         {
             // first check to see if there's a native property to set
             if (Instance != null)
@@ -197,12 +214,85 @@ namespace YamlAPIConnectParser.APIConnect.Entity
 
             // Converting the property name to lowercase
             // so that property names become case-insensitive.
-            Properties[binder.Name.ToLower()] = value;
+            _cache[binder.Name.ToLower()] = value;
+            Properties[binder.Name.ToLower()] = SetDictionary(value);
             OnPropertyChanged(binder.Name.ToLower());
             // You can always add a value to a dictionary,
             // so this method always returns true.
             return true;
         }
+
+        private object SetDictionary(object value)
+        {
+
+            if (!IsValidJson(value.ToString())) return value;
+
+            
+
+            var token = JToken.Parse(value.ToString());
+
+            if (token is JObject)
+            {
+               // return ((JObject)value).ToDictionary();
+               try
+                {
+                   
+                    
+                    // Dictionary<string, object> ValueList = JsonConvert.DeserializeObject<Dictionary<string, object>>(value.ToString());
+                    var temp = ((JObject)JsonConvert.DeserializeObject<dynamic>(value.ToString()));
+                    var resArray = ((JObject)temp).ToArray<dynamic>();
+                    var ValueList = resArray.ToDictionary(jo => ((JProperty )jo).Name , jo => (object)((JProperty)jo).Value);
+                    var result = ValueList.Where(kvp => kvp.Value != null && IsValidJson(kvp.Value.ToString())).ToDictionary(kvp => kvp.Key, kvp => SetDictionary(kvp.Value));
+                    foreach (KeyValuePair<string, object> item in result)
+                    {
+                        ValueList[item.Key] = item.Value;
+                    }
+
+                    return ValueList;
+                }
+                catch (Exception)
+                {
+                    return value;
+                }
+               
+            }
+
+            else if (token is JArray)
+            {
+               
+                var temp = ((JArray)JsonConvert.DeserializeObject<dynamic>(value.ToString()));
+                var resArray = ((JArray)temp).ToArray<dynamic>();
+                List<object> lst = new List<object>();
+                foreach(object item in resArray)
+                {
+                    lst.Add ( SetDictionary(item));
+                }
+
+                return lst;
+            }
+            else return value;
+            
+        }
+
+        bool IsValidJson(string json)
+        {
+
+            try
+            {
+                dynamic result = JToken.Parse(json);
+                return true;
+            }
+            catch (JsonReaderException ex)
+            {
+
+                return false;
+            }
+
+
+
+        }
+
+
         /// <summary>
         /// Provides the implementation for operations that invoke a member. Classes derived from the <see cref="T:System.Dynamic.DynamicObject"></see> class can override this method to specify dynamic behavior for operations such as calling a method.
         /// </summary>
@@ -324,8 +414,8 @@ namespace YamlAPIConnectParser.APIConnect.Entity
                     yield return new KeyValuePair<string, object>(prop.Name, prop.GetValue(Instance, null));
             }
 
-            foreach (var key in this.Properties.Keys)
-                yield return new KeyValuePair<string, object>(key, this.Properties[key]);
+            foreach (var key in this._cache.Keys)
+                yield return new KeyValuePair<string, object>(key, this._cache[key]);
 
         }
 
@@ -338,7 +428,7 @@ namespace YamlAPIConnectParser.APIConnect.Entity
         /// <returns></returns>
         public bool Contains(KeyValuePair<string, object> item, bool includeInstanceProperties = false)
         {
-            bool res = Properties.ContainsKey(item.Key);
+            bool res = _cache.ContainsKey(item.Key);
             if (res)
                 return true;
 
