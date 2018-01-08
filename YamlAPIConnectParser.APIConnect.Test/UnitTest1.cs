@@ -29,7 +29,7 @@ namespace YamlAPIConnectParser.APIConnect.Test
             var obj_old = YamlAPIConnectParser.APIConnect.Reflection.TypeBuilder<Entity.Definitions>.CreateNewObject();
             var obj_new = new Entity.Definitions();
             //Assert
-             Assert.IsTrue(object.ReferenceEquals ( obj_old , obj_new));
+             Assert.IsFalse(object.ReferenceEquals ( obj_old , obj_new));
         }
         [TestMethod]
         [ExpectedException(typeof(Exception))]
