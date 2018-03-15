@@ -1,9 +1,2 @@
-/TestYamlParser
-/packages
-/.vs
-/YamlAPIConnectParser.APIConnect/bin
-/YamlAPIConnectParser.APIConnect/obj
-/YamlAPIConnectParser.APIConnect.Entity/bin
-/YamlAPIConnectParser.APIConnect.Entity/obj
-/YamlAPIConnectParser.APIConnect.Test/obj
-/YamlAPIConnectParser.APIConnect.Test/bin
+bin/
+obj/
