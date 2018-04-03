@@ -16,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Parser\Parser.csproj" />
     <ProjectReference Include="..\Entity\Entity.csproj" />
-    <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
 </Project>

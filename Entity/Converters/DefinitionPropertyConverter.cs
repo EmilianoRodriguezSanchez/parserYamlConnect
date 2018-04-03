@@ -4,10 +4,13 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using YamlAPIConnectParser.Entity.Factories;
+using YamlAPIConnectParser.Entity.Interfaces;
+using static YamlAPIConnectParser.Entity.Parameter;
 
 namespace YamlAPIConnectParser.Entity
 {
-    public class SecurityRequirementConverter : JsonConverter
+    public class DefinitionPropertyConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -15,24 +18,22 @@ namespace YamlAPIConnectParser.Entity
             //var scope = (SecurityScope)value;
             //writer.WriteValue(scope.Name);
         }
-
+        
+        
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jObject = JObject.Load(reader);
-            var securityDefinitions = jObject.Properties()
-                .Select(x => x.Name)
-                .Select(n => new SecurityRequirement() 
+            return jObject.Properties()
+                .Select(x => new Property()
                 {
-                    SecurityDefinitionName = n, 
-                    AppliedScopes = new List<string>(jObject[n].Values<string>())
-                });
-
-            return new SecurityRequirementSet()
-            {
-                SecurityDefinitions = securityDefinitions.ToList()
-            };
+                    Name = x.Name,
+                    Description = jObject[x.Name]["description"]?.ToString(),
+                    Example = jObject[x.Name]["example"]?.ToString(),
+                    Type = TypesFactory.GetFactory(jObject[x.Name]).CreateType(jObject[x.Name])
+                })
+                .ToList();
         }
-
+        
         public override bool CanConvert(Type objectType)
         {
             return true;

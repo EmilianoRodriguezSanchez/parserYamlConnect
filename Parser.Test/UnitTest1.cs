@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using YamlParserConnect.Parser;
+using YamlParserConnect.Parser.Parser;
 
 namespace Parser.Test
 {
@@ -13,7 +13,7 @@ namespace Parser.Test
             var yaml = new YamlParser(_filePath);
             YamlAPIConnectParser.Entity.GettingStarted gettingStarted = yaml.Load(_filePath);
            
-            var _properties= gettingStarted.Definitions.GetDynamicMemberNames();
+           // var _properties= gettingStarted.Definitions.GetDynamicMemberNames();
             Assert.Equal(1, 1);
 
         }

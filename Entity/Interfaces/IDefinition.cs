@@ -5,8 +5,8 @@ using YamlAPIConnectParser.Entity.Utils;
 
 namespace YamlAPIConnectParser.Entity.Interfaces
 {
-    public interface IDataType
+    public interface IDefinition
     {
-        string Name { get; set; }
+        string Description { get; set; }
     }
 }

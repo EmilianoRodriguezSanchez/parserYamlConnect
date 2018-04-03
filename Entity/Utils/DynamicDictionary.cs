@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 
-namespace YamlAPIConnectParser.Utils
+namespace YamlAPIConnectParser.Entity.Utils
 {
     // The class derived from DynamicObject.
     public class DynamicDictionary : DynamicObject, INotifyPropertyChanged

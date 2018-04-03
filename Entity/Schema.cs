@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using YamlAPIConnectParser.Entity.Interfaces;
 using YamlAPIConnectParser.Entity.Utils;
 
 namespace YamlAPIConnectParser.Entity
 {
-    public abstract class SecurityDefinitionBasic : DynamicDictionary, ISecurityDefinition
+    public partial class Schema : IDefinition
     {
-        [JsonProperty("description")]
+        public bool HasAdditionalProperties { get; set; }
+        public List<Property> Properties { get; set; }
+        
+        #region IDefinition
+        
         public string Description { get; set; }
+        
+        #endregion
     }
+
+
 }
-
-
-

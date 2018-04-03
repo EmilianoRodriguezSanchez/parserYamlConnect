@@ -4,10 +4,12 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using YamlAPIConnectParser.Entity.Factories;
+using YamlAPIConnectParser.Entity.Interfaces;
 
 namespace YamlAPIConnectParser.Entity
 {
-    public class SecurityRequirementConverter : JsonConverter
+    public class ResponseConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -15,22 +17,18 @@ namespace YamlAPIConnectParser.Entity
             //var scope = (SecurityScope)value;
             //writer.WriteValue(scope.Name);
         }
-
+        
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jObject = JObject.Load(reader);
-            var securityDefinitions = jObject.Properties()
-                .Select(x => x.Name)
-                .Select(n => new SecurityRequirement() 
-                {
-                    SecurityDefinitionName = n, 
-                    AppliedScopes = new List<string>(jObject[n].Values<string>())
-                });
-
-            return new SecurityRequirementSet()
+            var response = new Response()
             {
-                SecurityDefinitions = securityDefinitions.ToList()
+                Description = jObject["description"]?.ToString(),
+                Type = TypesFactory.GetFactory(jObject["schema"]).CreateType(jObject["schema"])
             };
+
+            return response;
+
         }
 
         public override bool CanConvert(Type objectType)

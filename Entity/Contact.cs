@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using YamlAPIConnectParser.Utils;
+using YamlAPIConnectParser.Entity.Utils;
 
 namespace YamlAPIConnectParser.Entity
 {

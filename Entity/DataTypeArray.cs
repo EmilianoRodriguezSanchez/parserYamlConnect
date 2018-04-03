@@ -6,16 +6,15 @@ using YamlAPIConnectParser.Entity.Utils;
 
 namespace YamlAPIConnectParser.Entity
 {
-    public partial class DataTypeSchema : IDataType
+    public partial class DataTypeArray : IDataType
     {
         [JsonIgnore]
-        public string ReferencedType { get; set; }
+        public string ItemsType { get; set; }
 
         #region  IDataType
         
         [JsonProperty("name")]
         string IDataType.Name { get; set; }
-
         #endregion
     }
 }

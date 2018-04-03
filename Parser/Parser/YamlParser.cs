@@ -12,7 +12,7 @@ using System.IO;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 
-namespace YamlParserConnect.Parser
+namespace YamlParserConnect.Parser.Parser
 {
 
     public class ContextYaml : IDYamlNode<Dictionary<object, object>>

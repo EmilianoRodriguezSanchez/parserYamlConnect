@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using YamlDotNet.RepresentationModel;
 
-namespace YamlParserConnect.Parser
+namespace YamlParserConnect.Parser.Parser
 {
     public interface IDYamlNode<T> where T : class
     {

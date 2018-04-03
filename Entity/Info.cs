@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using YamlAPIConnectParser.Utils;
+using YamlAPIConnectParser.Entity.Utils;
 
 namespace YamlAPIConnectParser.Entity
 {

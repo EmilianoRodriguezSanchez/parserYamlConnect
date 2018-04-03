@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using YamlAPIConnectParser.Entity.Interfaces;
-using YamlAPIConnectParser.Utils;
+using YamlAPIConnectParser.Entity.Utils;
 
 namespace YamlAPIConnectParser.Entity
 {
@@ -10,6 +10,8 @@ namespace YamlAPIConnectParser.Entity
     {
         public enum SourceType
         {
+            [EnumMember(Value = "")]
+            Undefined,
             [EnumMember(Value = "path")]
             Path,
             [EnumMember(Value = "query")]
@@ -25,8 +27,11 @@ namespace YamlAPIConnectParser.Entity
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
         [JsonProperty("required")]
-        public bool Required { get; set; }
+        public bool IsRequired { get; set; }
 
         [JsonProperty("in")]
         [JsonConverter(typeof(StringEnumConverter))]
